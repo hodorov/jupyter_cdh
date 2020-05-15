@@ -1,0 +1,45 @@
+{
+  "name" : "JUPYTER",
+  "label" : "Jupyter Notebook",
+  "description" : "Jupyter Notebook",
+  "version" : "1.0",
+  "icon" : "images/jupyter.png",
+  "runAs" : {
+    "user" : "root",
+    "group" : "root"
+  },
+  "parcel" : {
+    "requiredTags" : ["spark-plugin"]
+  },
+  "roles" : [
+    {
+       "name" : "JUPYTER_NOTEBOOK_SERVER",
+       "label" : "Jupyter Notebook server",
+       "pluralLabel" : "Jupyter Notebook servers",
+       "parameters" : [
+        {
+          "name" : "port_num",
+          "label" : "Jupyter Notebook serving port",
+          "description" : "The port number",
+          "required" : "true",
+          "type" : "port",
+          "default" : 8080
+        }
+      ],
+      "startRunner" : {
+         "program" : "scripts/control.sh",
+         "args" : [ "start" ],
+         "environmentVariables" : {
+           "JPY_NOTEBOOK_PORT" : "${port_num}"
+         }
+      },
+      "externalLink" : {
+        "name" : "jupyter_notebook_web_ui",
+        "label" : "Jupyter Notebook UI",
+        "url" : "http://${host}:${port_num}",
+        "secureUrl" : "https://${host}:${port_num}"
+      }
+    }
+  ],
+  "rolesWithExternalLinks" : ["JUPYTER_NOTEBOOK_SERVER"]
+}
