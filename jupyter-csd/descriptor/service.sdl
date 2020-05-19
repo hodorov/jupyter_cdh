@@ -3,7 +3,7 @@
   "label" : "Jupyter Notebook",
   "description" : "Jupyter Notebook",
   "version" : "1.0",
-  "icon" : "images/jupyter.png",
+  "icon" : "images/icon.png",
   "runAs" : {
     "user" : "root",
     "group" : "root"
@@ -24,13 +24,29 @@
           "required" : "true",
           "type" : "port",
           "default" : 8080
+        },
+        {
+          "name" : "extra_opts",
+          "label" : "Jupyter Notebook extra options",
+          "description" : "Extra options",
+          "type" : "string",
+          "default" : "--allow-root"
+        },
+        {
+          "name" : "anaconda_bin_dir",
+          "label" : "Path to Anaconda binary",
+          "description" : "Path to Anaconda binary",
+          "type" : "string",
+          "default" : ""
         }
       ],
       "startRunner" : {
          "program" : "scripts/control.sh",
          "args" : [ "start" ],
          "environmentVariables" : {
-           "JPY_NOTEBOOK_PORT" : "${port_num}"
+           "JPY_NOTEBOOK_PORT" : "${port_num}",
+           "JPY_EXTRA_OPTS" : "${extra_opts}",
+           "ANACONDA_BIN_DIR" : "${anaconda_bin_dir}"
          }
       },
       "externalLink" : {
